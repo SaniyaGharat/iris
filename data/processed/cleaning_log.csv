@@ -1,0 +1,17 @@
+step,action,rows_removed,values_changed,rows_after,note
+1,Load raw file,0,0,5120,12 columns
+2,Remove exact duplicate rows,120,0,5000,Every duplicate order_id was a full-row copy
+3,Standardise text in city,0,987,5000,"trim spaces, unify case"
+4,Standardise text in category,0,4707,5000,"trim spaces, unify case"
+5,Standardise text in payment_method,0,25,5000,"trim spaces, unify case"
+6,Map city alias Bangalore -> Bengaluru,0,58,5000,
+7,Parse 3 mixed date formats to ISO,0,5000,5000,"dd-mm-yyyy=4151, dd-Mon-yy=709, mm-dd-yyyy=140; ambiguous (day<=12) numeric dates assumed dd-mm-yyyy"
+8,Drop invalid quantity (<=0 or 500),56,0,4944,"Orders cannot have zero/negative quantity; 500 is ~100x the normal max of 4, likely entry error"
+9,Flag impossible unit_price (0 or 250000) as missing,0,32,4944,
+10,Flag impossible discount_pct (150) as missing,0,10,4944,
+11,Impute missing unit_price with product median,0,181,4944,Each product has a tight price band; median is robust to remaining outliers
+12,Impute missing discount_pct with 0,0,129,4944,0 is the most common value (~43%); assumes no discount when not recorded
+13,Fill missing city,0,179,4944,"172 recovered from same customer_id's other orders, 7 set to 'Unknown'"
+14,Fill missing customer_name,0,90,4944,"88 recovered from same customer_id's other orders, 2 set to 'Unknown'"
+15,Fill missing payment_method with 'Unknown',0,39,4944,No reliable way to infer
+16,Add revenue column,0,4944,4944,quantity x unit_price x (1 - discount_pct/100)
