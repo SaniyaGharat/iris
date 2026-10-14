@@ -14,4 +14,5 @@ step,action,rows_removed,values_changed,rows_after,note
 13,Fill missing city,0,179,4944,"172 recovered from same customer_id's other orders, 7 set to 'Unknown'"
 14,Fill missing customer_name,0,90,4944,"88 recovered from same customer_id's other orders, 2 set to 'Unknown'"
 15,Fill missing payment_method with 'Unknown',0,39,4944,No reliable way to infer
-16,Add revenue column,0,4944,4944,quantity x unit_price x (1 - discount_pct/100)
+16,Statistical outlier check on unit_price (3x IQR per product),0,0,4944,"0 flagged: prices sit within ~7% of each product's median after fixing the 0 / 250,000 values"
+17,Add revenue column,0,4944,4944,quantity x unit_price x (1 - discount_pct/100)

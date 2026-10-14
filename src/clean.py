@@ -2,7 +2,7 @@ import pandas as pd, numpy as np
 
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "data" / "raw" / "sales_data_messy.csv"
+SRC = ROOT / "data" / "raw" / "sales.csv"
 OUT = ROOT / "data" / "processed"
 OUT.mkdir(parents=True, exist_ok=True)
 log = []
